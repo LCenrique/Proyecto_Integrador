@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Street Side — Panel Admin</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="admin-body-bg">
+
+  <main id="admin-login-view" class="admin-flex-container">
+    <div class="login-card">
+      <div class="login-icon">🔒</div>
+      <h2>Acceso Administrador</h2>
+      <p>Introduce la credencial para gestionar el catálogo.</p>
+      
+      <form id="login-form" onsubmit="handleAdminLogin(event)">
+        <div class="input-group">
+          <label for="login-password">Contraseña</label>
+          <input type="password" id="login-password" placeholder="••••••••" required />
+        </div>
+        <button type="submit" class="btn-login">Ingresar al Panel</button>
+      </form>
+      <a href="index.html" class="btn-back-catalog">← Volver al Catálogo</a>
+    </div>
+  </main>
+
+  <main id="admin-dashboard-view" style="display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+    <div class="admin-header-nav">
+      <div class="header-logo" style="color: #000;">Street Side <span style="font-weight: 400; font-size: 1rem;">| Panel Admin</span></div>
+      <button class="btn-logout" onclick="handleLogout()">Cerrar Sesión 🚪</button>
+    </div>
+
+    <div class="admin-panel" style="margin-top: 20px;">
+      <div class="admin-toolbar">
+        <div>
+          <div class="admin-title">Gestión de productos</div>
+        </div>
+        <div class="admin-stats">
+          <div class="admin-stat">
+            <div class="val" id="stat-total">0</div>
+            <div class="lbl">Total</div>
+          </div>
+          <div class="admin-stat">
+            <div class="val" id="stat-ofertas">0</div>
+            <div class="lbl">Ofertas</div>
+          </div>
+          <div class="admin-stat">
+            <div class="val" id="stat-favs">0</div>
+            <div class="lbl">Favoritos</div>
+          </div>
+        </div>
+        <button class="btn-add-product" onclick="alert('✅ Función disponible con backend')">
+          + Nuevo producto
+        </button>
+      </div>
+      
+      <div class="admin-table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Nombre</th>
+              <th>Categoría</th>
+              <th>Precio</th>
+              <th>Etiquetas</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="admin-tbody">
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="admin-toast"></div>
+
+  <script src="admin-script.js"></script>
+</body>
+</html>
