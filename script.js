@@ -1,5 +1,3 @@
-
-      /* ===== CONFIG ===== */
       const whatsappLink = "https://wa.me/528991038598";
       let userRole = "admin"; // "admin" | "user"
       let currentFilter = "inicio";

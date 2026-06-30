@@ -8,11 +8,11 @@ function handleAdminLogin(event) {
     // Intercambiar pantallas
     document.getElementById("admin-login-view").style.display = "none";
     document.getElementById("admin-dashboard-view").style.display = "block";
-    showAdminToast("🔓 Acceso concedido");
+    showAdminToast("Acceso concedido");
     
     // Aquí puedes llamar a la función que cargue la tabla de productos más adelante
   } else {
-    showAdminToast("❌ Contraseña incorrecta");
+    showAdminToast("Contraseña incorrecta");
   }
 }
 
