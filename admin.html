@@ -9,22 +9,27 @@
 </head>
 <body class="admin-body-bg">
 
-<form>
-  <div class="mb-3">
-    <label for="exampleInputEmail1" class="form-label">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
-  </div>
-  <div class="mb-3">
-    <label for="exampleInputPassword1" class="form-label">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1">
-  </div>
-  <div class="mb-3 form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+<!-- Envoltura para la vista de login con su ID correspondiente -->
+<div id="admin-login-view" class="admin-flex-container">
+  <!-- Agregamos id y el evento onsubmit al formulario -->
+  <form id="login-form" onsubmit="handleAdminLogin(event)" style="max-width: 400px; width: 100%; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px;">
+    <div class="mb-3">
+      <label for="login-email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp" required>
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+    <div class="mb-3">
+      <label for="login-password" class="form-label">Password</label>
+      <!-- Cambiado el ID a "login-password" para que coincida con tu JS -->
+      <input type="password" class="form-control" id="login-password" required>
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="exampleCheck1">
+      <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Submit</button>
+  </form>
+</div>
 
   <main id="admin-dashboard-view" style="display: none; padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
     <div class="admin-header-nav">
@@ -77,6 +82,6 @@
 
   <div class="toast" id="admin-toast"></div>
 
-  <script src="admin-script.js"></script>
+  <script src="adminScript.js"></script>
 </body>
 </html>

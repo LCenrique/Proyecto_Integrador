@@ -970,3 +970,272 @@ tbody tr:hover {
 .btn-logout:hover {
   background: #b90505;
 }
+
+/* ============================================================
+   11. DISEÑO DEL MODAL DE DETALLES DEL PRODUCTO
+   ============================================================ */
+
+/* Contenedor global / Fondo oscuro (Overlay) */
+.product-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 16px;
+  transition: opacity 0.3s ease;
+}
+
+/* Ocultar el modal por defecto cuando tiene el atributo hidden */
+.product-modal-overlay[hidden] {
+  display: none !important;
+}
+
+/* Tarjeta contenedora del modal */
+.product-modal {
+  background-color: #ffffff;
+  width: 100%;
+  max-width: 850px;
+  max-height: 90vh;
+  border-radius: 12px;
+  border: 1.5px solid #e0e0e0;
+  position: relative;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: modalScaleUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalScaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Botón de cerrar (X) */
+.product-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 2rem;
+  line-height: 1;
+  color: #3a3a3a;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.product-modal__close:hover {
+  color: #b90505;
+  transform: scale(1.1);
+}
+
+/* Distribución del cuerpo en dos columnas */
+.product-modal__body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  padding: 32px;
+}
+
+/* ── COLUMNA IZQUIERDA: GALERÍA ── */
+.product-modal__gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.product-modal__img-main-wrap {
+  width: 100%;
+  height: 380px;
+  background-color: #ececec;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid #e0e0e0;
+}
+
+.product-modal__img-main {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Contenedor de miniaturas para el futuro */
+.product-modal__thumbnails {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── COLUMNA DERECHA: INFORMACIÓN ── */
+.product-modal__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-modal__category {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #a1a1a1;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+
+.product-modal__name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+/* Precios y descuentos */
+.product-modal__pricing {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.product-modal__price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #b90505;
+}
+
+.product-modal__price-old {
+  font-size: 1.05rem;
+  color: #a1a1a1;
+  text-decoration: line-through;
+}
+
+.product-modal__discount {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a9e4e;
+  background-color: #e8f5e9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+/* Disponibilidad */
+.product-modal__availability {
+  margin-bottom: 20px;
+}
+
+.product-modal__availability-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Estados dinámicos para el badge mediante data-status */
+.product-modal__availability-badge[data-status="available"] {
+  background-color: #e8f5e9;
+  color: #1a9e4e;
+}
+
+.product-modal__availability-badge[data-status="sold-out"] {
+  background-color: #fff0f0;
+  color: #b90505;
+}
+
+/* Descripción */
+.product-modal__description-wrap {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 16px;
+  margin-bottom: auto; /* Empuja los botones hacia abajo */
+}
+
+.product-modal__description {
+  font-size: 0.92rem;
+  color: #555555;
+  line-height: 1.6;
+}
+
+/* Botones de acción */
+.product-modal__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+/* Botón WhatsApp */
+.product-modal__btn-wsp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #25d366;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: center;
+  transition: background-color 0.25s ease;
+}
+
+.product-modal__btn-wsp:hover {
+  background-color: #1eb356;
+  color: #ffffff;
+}
+
+/* Botón Favoritos */
+.product-modal__btn-fav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background-color: #ffffff;
+  color: #3a3a3a;
+  border: 1.5px solid #e0e0e0;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.product-modal__btn-fav:hover {
+  border-color: #3a3a3a;
+  background-color: #fafafa;
+}
+
+/* Estado activo de favoritos (cuando aria-pressed="true") */
+.product-modal__btn-fav[aria-pressed="true"] {
+  background-color: #fff0f0;
+  border-color: #b90505;
+  color: #b90505;
+}
+
+/* ============================================================
+   12. RESPONSIVE DESIGN PARA EL MODAL
+   ============================================================ */
+@media (max-width: 768px) {
+  .product-modal__body {
+    grid-template-columns: 1fr; /* Una sola columna en móvil */
+    gap: 20px;
+    padding: 24px;
+  }
+
+  .product-modal__img-main-wrap {
+    height: 280px; /* Reducimos la imagen en pantallas chicas */
+  }
+
+  .product-modal__name {
+    font-size: 1.35rem;
+  }
+}
