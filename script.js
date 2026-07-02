@@ -25,7 +25,7 @@ const products = [
   // COLLARES
   { id:13, nombre:"Collar Cruz Gótica",         cat:"collares",     precio:340,  precioOld:420,  oferta:true,  favorito:false, destacado:true,  emoji:"📿", desc:"Colgante acero, cadena 60cm" },
   { id:14, nombre:"Collar Ojo de Ra",           cat:"collares",     precio:290,  precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"📿", desc:"Chapado en oro, pendiente" },
-  { id:15, nombre:"Collar Piedra Obsidiana",    cat:"collares",     precio:380,  precioOld:480,  oferta:true,  favorito:false, destacado:false, emoji:"📿", desc:"Piedra natural, cordón negro" },
+  { id:15, nombre:"Collar Piedra Obsidiana",    cat:"collares",     precio:380,  precioOld:480,  oferta:false,  favorito:false, destacado:false, emoji:"📿", desc:"Piedra natural, cordón negro" },
   { id:16, nombre:"Collar Estrella Plata",      cat:"collares",     precio:220,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"📿", desc:"Colgante estrella 5 puntas" },
   { id:17, nombre:"Collar Tetragramaton",       cat:"collares",     precio:310,  precioOld:390,  oferta:true,  favorito:false, destacado:false, emoji:"📿", desc:"Simbología esotérica, plata" },
   { id:18, nombre:"Collar Diente Tiburón",      cat:"collares",     precio:260,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"📿", desc:"Resina + oro, surf style" },
@@ -47,7 +47,7 @@ const products = [
   { id:31, nombre:"Bota Vaquera Café",          cat:"botas",        precio:2100, precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"🥾", desc:"Punta cuadrada, tacón alto" },
   { id:32, nombre:"Bota Combat Militar",        cat:"botas",        precio:1650, precioOld:1990, oferta:true,  favorito:false, destacado:false, emoji:"🥾", desc:"Lona + cuero, suela Vibram" },
   { id:33, nombre:"Bota Chelsea Negra",         cat:"botas",        precio:1400, precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"🥾", desc:"Elástico lateral, cuero liso" },
-  { id:34, nombre:"Bota Punk Metalera",         cat:"botas",        precio:1900, precioOld:2300, oferta:true,  favorito:false, destacado:false, emoji:"🥾", desc:"Hebillas laterales, plataforma" },
+  { id:34, module:"Bota Punk Metalera",         cat:"botas",        precio:1900, precioOld:2300, oferta:true,  favorito:false, destacado:false, emoji:"🥾", desc:"Hebillas laterales, plataforma" },
   { id:35, nombre:"Bota Western Punta Fina",    cat:"botas",        precio:2400, precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"🥾", desc:"Cuero exótico, bordado floral" },
   // PLAYERAS
   { id:36, nombre:"Playera Calavera Estampada", cat:"playeras",     precio:320,  precioOld:420,  oferta:true,  favorito:false, destacado:true,  emoji:"👕", desc:"100% algodón, serigrafía" },
@@ -58,13 +58,13 @@ const products = [
   { id:41, nombre:"Playera Raglán Bicolor",     cat:"playeras",     precio:290,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"👕", desc:"Negro + gris, manga 3/4" },
   // PIERCINGS
   { id:42, nombre:"Piercing Septum Plata",      cat:"piercings",    precio:180,  precioOld:240,  oferta:true,  favorito:false, destacado:true,  emoji:"💎", desc:"Acero quirúrgico 316L" },
-  { id:43, nombre:"Piercing Helix Aro",         cat:"piercings",    precio:140,  precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"💎", desc:"Titanio grado implante" },
+  { id:43, nombre:"Piercing Helix Aro",          cat:"piercings",    precio:140,  precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"💎", desc:"Titanio grado implante" },
   { id:44, nombre:"Piercing Nariz Diamante",    cat:"piercings",    precio:220,  precioOld:280,  oferta:true,  favorito:false, destacado:false, emoji:"💎", desc:"Cristal Swarovski + acero" },
   { id:45, nombre:"Piercing Labret Flat",       cat:"piercings",    precio:160,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"💎", desc:"Acero plano, varios colores" },
   { id:46, nombre:"Piercing Industrial Barra",  cat:"piercings",    precio:190,  precioOld:240,  oferta:true,  favorito:false, destacado:false, emoji:"💎", desc:"Barra doble, acero negro" },
   { id:47, nombre:"Piercing Daith Corazón",     cat:"piercings",    precio:200,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"💎", desc:"Aro corazón, plata 925" },
   // ACCESORIOS
-  { id:48, nombre:"Mochila Hello Kitty Alt",    cat:"accesorios",   precio:680,  precioOld:850,  oferta:true,  favorito:false, destacado:true,  emoji:"🎒", desc:"Edición alternativa, kawaii" },
+  { id:48, nombre:"Mochila Hello Kitty Alt",    cat:"accesorios",   precio:680,  precioOld:850,  oferta:false,  favorito:false, destacado:true,  emoji:"🎒", desc:"Edición alternativa, kawaii" },
   { id:49, nombre:"Gafas Redondas Vintage",     cat:"accesorios",   precio:420,  precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"🕶️", desc:"Montura metálica, UV400" },
   { id:50, nombre:"Sombrero Fedora Cuero",      cat:"accesorios",   precio:550,  precioOld:690,  oferta:true,  favorito:false, destacado:false, emoji:"🎩", desc:"Cuero liso, banda tejida" },
   // HERRAMIENTAS
@@ -72,11 +72,11 @@ const products = [
   { id:52, nombre:"Linterna Táctica LED",        cat:"herramientas", precio:340,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"🔦", desc:"1000 lúmenes, zoom" },
   { id:53, nombre:"Navaja Plegable Negra",      cat:"herramientas", precio:560,  precioOld:700,  oferta:true,  favorito:false, destacado:false, emoji:"🔪", desc:"Hoja D2 steel, mango G10" },
   // ROPA
-  { id:54, nombre:"Chaleco Piel Motociclista",  cat:"ropa",         precio:1800, precioOld:2200, oferta:true,  favorito:false, destacado:true,  emoji:"🧥", desc:"Cuero genuino, bolsillos" },
+  { id:54, nombre:"Chaleco Piel Motociclista",  cat:"ropa",         precio:1800, precioOld:2200, oferta:false,  favorito:false, destacado:true,  emoji:"🧥", desc:"Cuero genuino, bolsillos" },
   { id:55, nombre:"Pantalón Cargo Oscuro",      cat:"ropa",         precio:620,  precioOld:null, oferta:false, favorito:false,  destacado:true,  emoji:"👖", desc:"Tela resistente, 6 bolsillos" },
-  { id:56, nombre:"Chaqueta Denim Rasgada",     cat:"ropa",         precio:780,  precioOld:960,  oferta:true,  favorito:false, destacado:false, emoji:"🧥", desc:"Denim 100%, parches" },
+  { id:56, module:"Chaqueta Denim Rasgada",     cat:"ropa",         precio:780,  precioOld:960,  oferta:true,  favorito:false, destacado:false, emoji:"🧥", desc:"Denim 100%, parches" },
   // CALZADO
-  { id:57, nombre:"Tenis Chunky Blanco",        cat:"calzado",      precio:1100, precioOld:1380, oferta:true,  favorito:false, destacado:true,  emoji:"👟", desc:"Suela gruesa, estilo Y2K" },
+  { id:57, nombre:"Tenis Chunky Blanco",        cat:"calzado",      precio:1100, precioOld:1380, oferta:true,  favorito:false, destacado:true,  emoji:"Sneakers", desc:"Suela gruesa, estilo Y2K" },
   { id:58, nombre:"Oxford Cuero Negro",         cat:"calzado",      precio:980,  precioOld:null, oferta:false, favorito:false, destacado:true,  emoji:"👞", desc:"Cuero pulido, suela goma" },
   { id:59, nombre:"Sandalias Plataforma",       cat:"calzado",      precio:750,  precioOld:940,  oferta:true,  favorito:false, destacado:false, emoji:"👡", desc:"Plataforma 5cm, hebilla" },
   // STICKERS
@@ -93,36 +93,39 @@ let favs = new Set(products.filter(p => p.favorito).map(p => p.id));
 /* --------------------------------------------------------------------------
    3.5 FUNCIÓN COMPARTIDA PARA EL SCRIPT DE FAVORITOS (VINCULO CON MODAL)
    -------------------------------------------------------------------------- */
-// Esta función la agregamos para que ventanaModal.js sepa si un ID es favorito en tiempo real
 window.esFavorito = function(id) {
   return favs.has(id);
 };
 
-// Modificamos el trigger manual de favoritos del modal para conectarlo con el estado global de favs
+// --- CANDADO ADAPTADO PARA EL BOTÓN DE FAVORITOS DEL MODAL ---
 document.getElementById("modal-btn-fav").addEventListener("click", function() {
+  // Verificación de sesión activa
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    showToast("Inicia sesión para guardar favoritos.");
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 1200);
+    return;
+  }
+
   const productId = parseInt(this.getAttribute("data-product-id"));
   if (!productId) return;
   
   const isAdding = !favs.has(productId);
   favs[isAdding ? "add" : "delete"](productId);
   
-  // Actualizar la interfaz del botón del modal en tiempo real
   this.setAttribute("aria-pressed", isAdding ? "true" : "false");
   this.querySelector('.product-modal__btn-fav-label').textContent = isAdding ? 'Quitar de favoritos' : 'Agregar a favoritos';
   this.querySelector('.product-modal__btn-fav-icon').textContent = isAdding ? '♥' : '♡';
   
   showToast(isAdding ? "Agregado a favoritos" : "Eliminado de favoritos");
   
-  // Refrescar las grillas principales para que reflejen el cambio de corazón inmediatamente
   renderProductGrid();
 });
 
-// Función de utilidad para buscar un producto por su ID y mandarlo al modal
 function abrirDetallePorId(id) {
   const item = products.find(p => p.id === id);
   if (item) {
-    // Como tu JSON de datos usa "cat" en lugar de "categoria", "precioOld" en vez de "precioViejo" y "desc" por "descripcion",
-    // creamos un objeto adaptado para que ventanaModal.js lo entienda sin problemas:
     const productoAdaptado = {
       id: item.id,
       nombre: item.nombre,
@@ -130,11 +133,10 @@ function abrirDetallePorId(id) {
       precio: item.precio,
       precioViejo: item.precioOld,
       descripcion: item.desc,
-      stock: true, // Asumimos true por defecto
-      imagen: "" // Si en el futuro agregas URLs de imágenes reales aquí van
+      stock: true,
+      imagen: ""
     };
     
-    // Llamamos a la función global de ventanaModal.js
     if (typeof verDetalleProducto === "function") {
       verDetalleProducto(productoAdaptado);
     }
@@ -215,14 +217,24 @@ document.getElementById("search-input").addEventListener("input", function () {
 });
 
 /* --------------------------------------------------------------------------
-   8. FAVORITOS
+   8. FAVORITOS (CON CANDADO DE INICIO DE SESIÓN ACTIVO)
    -------------------------------------------------------------------------- */
 function toggleFav(id, btn) {
+  // --- CANDADO ABSOLUTO ---
+  if (localStorage.getItem('isLoggedIn') !== 'true') {
+    showToast("⚠️ Inicia sesión para guardar favoritos.");
+    setTimeout(() => {
+      window.location.href = 'login.html';
+    }, 1200);
+    return; // Detiene cualquier acción posterior
+  }
+
   const adding = !favs.has(id);
   favs[adding ? "add" : "delete"](id);
   btn.textContent = adding ? "♥" : "♡";
   btn.classList.toggle("faved", adding);
   showToast(adding ? "Agregado a favoritos" : "Eliminado de favoritos");
+  // -------------------------------
 }
 
 /* --------------------------------------------------------------------------
@@ -278,7 +290,6 @@ function renderOfertas() {
 
 /* — Grilla principal de productos — */
 function renderProductGrid() {
-  // Aplicar filtros
   let list = products.filter(p => {
     if (currentFilter === "favoritos")  return favs.has(p.id);
     if (currentFilter === "ofertas")    return p.oferta;
@@ -293,7 +304,6 @@ function renderProductGrid() {
     );
   }
 
-  // Actualizar encabezado
   document.getElementById("section-products-title").textContent =
     searchQuery ? `Resultados para "${searchQuery}"` : (FILTER_LABELS[currentFilter] || "Productos");
   document.getElementById("product-count").textContent =
@@ -342,3 +352,41 @@ function renderAll() {
 }
 
 renderAll();
+
+/* --------------------------------------------------------------------------
+   11. CONTROL DEL BOTÓN DE AUTENTICACIÓN (DINÁMICO EN NAVBAR)
+   -------------------------------------------------------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const btnAuth = document.getElementById('btn-auth');
+
+  if (btnAuth) {
+    // Buscamos la etiqueta <strong> que está adentro del enlace
+    const strongText = btnAuth.querySelector('strong');
+    const estadoSesion = localStorage.getItem('isLoggedIn');
+
+    if (estadoSesion === 'true') {
+      // 1. SI INICIÓ SESIÓN: Cambiamos el texto de adentro del strong
+      if (strongText) {
+        strongText.textContent = "Cerrar Sesión";
+      }
+      btnAuth.style.color = "#b90505"; // Tu rojo de acento urbano
+
+      // Desactivamos el comportamiento del enlace para que no te mande a login.html
+      btnAuth.onclick = function(event) {
+        event.preventDefault();
+        localStorage.clear(); // Limpieza absoluta de la sesión fantasma
+        window.location.reload(); // Recarga la misma página al instante
+      };
+
+    } else {
+      // 2. SI ES INVITADO: Aseguramos que diga Iniciar Sesión de forma normal
+      if (strongText) {
+        strongText.textContent = "Iniciar sesión";
+      }
+      btnAuth.style.color = ""; // Restaura el estilo de tu CSS original
+      
+      // Al dar clic, se comporta como un enlace normal y te lleva al login
+      btnAuth.onclick = null; 
+    }
+  }
+});
