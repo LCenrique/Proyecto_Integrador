@@ -20,7 +20,7 @@ let products = JSON.parse(localStorage.getItem("streetSideProducts"));
 if (!products || products.length === 0) {
     products = [
         // CADENAS
-        { id:1,  nombre:"Cadena Cubana Plata",       cat:"cadenas",      precio:580,  precioOld:720,  oferta:true,  favorito:false, destacado:true,  emoji:"⛓️", desc:"Acero inoxidable 316L, 60cm" },
+        { id:1,  nombre:"Cadena Cubana Plata",       cat:"cadenas",      precio:220,  precioOld:null,  oferta:true,  favorito:false, destacado:true,  emoji:"⛓️", desc:"Acero inoxidable 316L, 60cm" },
         { id:2,  nombre:"Cadena Snake Gold",          cat:"cadenas",      precio:430,  precioOld:null, oferta:false, favorito:false, destacado:true,  emoji:"⛓️", desc:"Chapado en oro 18k, 45cm" },
         { id:3,  nombre:"Cadena Rolo Negra",          cat:"cadenas",      precio:320,  precioOld:400,  oferta:true,  favorito:false, destacado:false, emoji:"⛓️", desc:"Acero negro mate, 55cm" },
         { id:4,  nombre:"Cadena Figaro Plata",        cat:"cadenas",      precio:490,  precioOld:null, oferta:false, favorito:false, destacado:false, emoji:"⛓️", desc:"Plata 925, 50cm" },
@@ -156,6 +156,38 @@ document.getElementById("btn-logout-admin").addEventListener("click", () => {
    ========================================================================== */
 renderAdminTable();
 
-document.getElementById("open-modal-add").addEventListener("click", () => {
-    showToast("🛠️ Formulario de alta listo para conectarse");
+/* ==========================================================================
+   6. CONTROL DEL MODAL (ABRIR Y CERRAR)
+   ========================================================================== */
+const modal = document.getElementById("product-modal");
+const openModalBtn = document.getElementById("open-modal-add");
+const closeModalBtn = document.getElementById("close-modal-btn");
+const cancelModalBtn = document.getElementById("cancel-modal-btn");
+const productForm = document.getElementById("product-form");
+
+// Función para abrir el modal
+openModalBtn.addEventListener("click", () => {
+    // Limpiamos el formulario por si tenía datos guardados antes
+    productForm.reset();
+    document.getElementById("form-product-id").value = "";
+    document.getElementById("modal-form-title").textContent = "Nuevo Producto";
+    
+    // Agregamos la clase que lo vuelve visible
+    modal.classList.add("open");
+});
+
+// Función para cerrar el modal
+function cerrarModal() {
+    modal.classList.remove("open");
+}
+
+// Eventos para cerrar al dar clic en la 'X' o en 'Cancelar'
+closeModalBtn.addEventListener("click", cerrarModal);
+cancelModalBtn.addEventListener("click", cerrarModal);
+
+// Cerrar también si dan clic afuera del recuadro blanco
+window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+        cerrarModal();
+    }
 });
