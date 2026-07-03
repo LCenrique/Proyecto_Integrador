@@ -5,25 +5,25 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #121212; /* Fondo oscuro integrado con la tienda */
+  background-color: #3e3e3e;
   padding: 20px;
-  font-family: sans-serif; /* O la tipografía que uses en styles.css */
+  font-family: sans-serif; 
 }
 
 .login-container {
   width: 100%;
   max-width: 400px;
   padding: 40px 30px;
-  background-color: #1a1a1a;
-  border-radius: 12px;
-  border: 1px solid #333;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  background-color: #3a3a3a;
+  border-radius: 23px;
+  border: 1px solid #3a3a3a;
+  box-shadow: 0 10px 30px rgba(181, 181, 181, 0.3);
 }
 
 .login-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #e1e1e1;
   text-align: center;
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -32,7 +32,7 @@
 
 .login-subtitle {
   font-size: 0.9rem;
-  color: #888;
+  color: #e1e1e1;
   text-align: center;
   margin-bottom: 32px;
 }
@@ -45,7 +45,7 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #aaa;
+  color: #e1e1e1;
   margin-bottom: 9px;
   text-transform: uppercase;
 }
@@ -53,8 +53,8 @@
 .form-control {
   width: 100%;
   padding: 14px;
-  background-color: #262626;
-  border: 1px solid #444;
+  background-color: #61616164;
+  border: 1px solid #414141;
   border-radius: 6px;
   color: #fff;
   font-size: 0.95rem;
@@ -63,13 +63,13 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #b90505; /* Rojo de acento */
-  box-shadow: 0 0 8px rgba(185, 5, 5, 0.2);
+  border-color: #ffffff; /* Rojo de acento */
+  box-shadow: 0 0 8px rgba(161, 161, 161, 0.2);
 }
 
 .btn-login {
   width: 100%;
-  background-color: #ffffff;
+  background-color: #c6c6c6;
   color: #000000;
   padding: 14px;
   border: none;
@@ -82,8 +82,8 @@
 }
 
 .btn-login:hover {
-  background-color: #b90505; /* Cambia a rojo al pasar el mouse */
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 .btn-login:active {

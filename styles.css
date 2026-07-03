@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -66,7 +68,7 @@ button {
 
 .ticker-track span {
   padding: 0 1.5rem;
-  font-size: 0.80rem; 
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.9px;
   text-transform: uppercase;
@@ -74,8 +76,12 @@ button {
 }
 
 @keyframes ticker-scroll {
-  0% { transform: translate3d(0, 0, 0); }
-  100% { transform: translate3d(-50%, 0, 0); }
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
 }
 
 .header {
@@ -121,7 +127,7 @@ button {
 }
 
 .header-search:focus-within {
-  border-color: #b90505;
+  border-color: #000000;
 }
 
 .header-search input {
@@ -378,13 +384,17 @@ button {
 }
 
 .carousel-btn:hover {
-  border-color: #b90505;
-  color: #b90505;
+  border-color: #ffffff;
+  color: #ffffff;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
 }
 
-.carousel-btn.prev { left: -16px; }
-.carousel-btn.next { right: -16px; }
+.carousel-btn.prev {
+  left: -16px;
+}
+.carousel-btn.next {
+  right: -16px;
+}
 
 .trend-card {
   flex: 0 0 160px;
@@ -579,13 +589,13 @@ button {
 }
 
 .pc-fav-btn:hover {
-  border-color: #b90505;
+  border-color: #000000;
   transform: scale(1.1);
 }
 
 .pc-fav-btn.faved {
-  background: #fff0f0;
-  border-color: #b90505;
+  background: #f7f7f7;
+  border-color: #000000;
 }
 
 .pc-body {
@@ -646,7 +656,9 @@ button {
 }
 
 .pc-add-btn:hover {
-  background: #b90505;
+  background: #ffffff;
+  color: #000000;
+  border: 1.5px solid #000000;
 }
 
 /* State: Sin productos */
@@ -771,7 +783,8 @@ button {
   .header-actions .btn-role {
     display: none;
   }
-  .product-grid, .oferta-grid {
+  .product-grid,
+  .oferta-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
   }
@@ -781,7 +794,9 @@ button {
   .announcement-ticker {
     animation: none;
   }
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
   }
@@ -879,7 +894,8 @@ thead {
   background: #e1e1e1;
 }
 
-th, td {
+th,
+td {
   padding: 11px 14px;
   text-align: left;
   border-bottom: 1px solid #e0e0e0;
@@ -926,7 +942,8 @@ tbody tr:hover {
   gap: 6px;
 }
 
-.btn-edit, .btn-del {
+.btn-edit,
+.btn-del {
   padding: 4px 10px;
   border-radius: 5px;
   font-size: 0.75rem;
@@ -1009,8 +1026,14 @@ tbody tr:hover {
 }
 
 @keyframes modalScaleUp {
-  from { transform: scale(0.95); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 /* Botón de cerrar (X) */
@@ -1025,11 +1048,13 @@ tbody tr:hover {
   border: none;
   cursor: pointer;
   z-index: 10;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .product-modal__close:hover {
-  color: #b90505;
+  color: #000000;
   transform: scale(1.1);
 }
 
@@ -1216,9 +1241,9 @@ tbody tr:hover {
 
 /* Estado activo de favoritos (cuando aria-pressed="true") */
 .product-modal__btn-fav[aria-pressed="true"] {
-  background-color: #fff0f0;
-  border-color: #b90505;
-  color: #b90505;
+  background-color: #e4e4e4;
+  border-color: #000000;
+  color: #000000;
 }
 
 /* ============================================================
@@ -1238,4 +1263,11 @@ tbody tr:hover {
   .product-modal__name {
     font-size: 1.35rem;
   }
+}
+
+.product-img-card {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Hace que la imagen llene el espacio sin deformarse */
+  border-radius: 8px 8px 0 0; /* Si tus tarjetas tienen bordes redondeados arriba */
 }
