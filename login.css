@@ -14,16 +14,15 @@
   width: 100%;
   max-width: 400px;
   padding: 40px 30px;
-  background-color: #3a3a3a;
+  background-color: #ffffff;
   border-radius: 23px;
-  border: 1px solid #3a3a3a;
   box-shadow: 0 10px 30px rgba(181, 181, 181, 0.3);
 }
 
 .login-title {
   font-size: 2rem;
   font-weight: 800;
-  color: #e1e1e1;
+  color: #000000;
   text-align: center;
   margin-bottom: 8px;
   text-transform: uppercase;
@@ -32,7 +31,8 @@
 
 .login-subtitle {
   font-size: 0.9rem;
-  color: #e1e1e1;
+  font-weight: 600;
+  color: #000000;
   text-align: center;
   margin-bottom: 32px;
 }
@@ -45,7 +45,7 @@
   display: block;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #e1e1e1;
+  color: #000000;
   margin-bottom: 9px;
   text-transform: uppercase;
 }
@@ -53,10 +53,10 @@
 .form-control {
   width: 100%;
   padding: 14px;
-  background-color: #61616164;
+  background-color: #f6f6f6;
   border: 1px solid #414141;
   border-radius: 6px;
-  color: #fff;
+  color: #000000;
   font-size: 0.95rem;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -69,8 +69,8 @@
 
 .btn-login {
   width: 100%;
-  background-color: #c6c6c6;
-  color: #000000;
+  background-color: #000000;
+  color: #ffffff;
   padding: 14px;
   border: none;
   border-radius: 6px;
