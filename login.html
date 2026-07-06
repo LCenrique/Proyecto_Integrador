@@ -12,53 +12,172 @@
 
   <div class="login-wrapper">
     <div class="login-container">
-      <h2 class="login-title">Street Side</h2>
-      <p class="login-subtitle">Ingresa tus credenciales de acceso</p>
+      <h2 class="login-title" id="auth-title">Street Side</h2>
+      <p class="login-subtitle" id="auth-subtitle">Ingresa tus credenciales de acceso</p>
       
       <form id="login-form">
+        <input type="hidden" id="auth-mode" value="login">
+
         <div class="form-group">
           <label for="username">Usuario</label>
           <input type="text" id="username" autocomplete="off" class="form-control" placeholder="Ej: cliente o admin" required>
         </div>
         
+        <div id="register-fields" style="display: none;">
+          <div class="form-group">
+            <label for="birthdate">Fecha de Nacimiento</label>
+            <input type="date" id="birthdate" class="form-control">
+          </div>
+        </div>
         <div class="form-group">
           <label for="password">Contraseña</label>
           <input type="password" id="password" placeholder="Ingresa tu contraseña" class="form-control" required>
         </div>
         
-        <button type="submit" class="btn-login">Iniciar sesión</button>
+        <div id="confirm-password-field" style="display: none;">
+          <div class="form-group">
+            <label for="confirm-password">Confirmar Contraseña</label>
+            <input type="password" id="confirm-password" placeholder="Repite tu contraseña" class="form-control">
+          </div>
+        </div>
+        <button type="submit" class="btn-login" id="btn-auth-submit">Iniciar sesión</button>
         
         <div id="error-msg" class="error-message">Usuario o contraseña incorrectos.</div>
       </form>
+
+      <div class="auth-toggle">
+        <p id="toggle-text">¿No tienes una cuenta? <a id="btn-toggle-auth">Regístrate aquí</a></p>
+      </div>
     </div>
   </div>
 
   <script>
+    const authModeInput = document.getElementById('auth-mode');
+    const authTitle = document.getElementById('auth-title');
+    const authSubtitle = document.getElementById('auth-subtitle');
+    const btnAuthSubmit = document.getElementById('btn-auth-submit');
+    const toggleText = document.getElementById('toggle-text');
+    
+    const registerFields = document.getElementById('register-fields');
+    const confirmPasswordField = document.getElementById('confirm-password-field');
+    const errorMsg = document.getElementById('error-msg');
+
+    const usuarioInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const birthdateInput = document.getElementById('birthdate');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+
+    // 1. ALTERNAR MODOS (LOGIN / REGISTRO)
+    document.addEventListener('click', function(e) {
+      if (e.target && e.target.id === 'btn-toggle-auth') {
+        e.preventDefault();
+        errorMsg.style.display = 'none'; // Limpiar errores al cambiar
+
+        if (authModeInput.value === 'login') {
+          authModeInput.value = 'registro';
+          authTitle.textContent = 'Crear Cuenta';
+          authSubtitle.textContent = 'Completa tus datos de registro';
+          btnAuthSubmit.textContent = 'Registrarse';
+          
+          registerFields.style.display = 'block';
+          confirmPasswordField.style.display = 'block';
+          birthdateInput.required = true;
+          confirmPasswordInput.required = true;
+          
+          toggleText.innerHTML = '¿Ya tienes cuenta? <a id="btn-toggle-auth">Inicia sesión aquí</a>';
+        } else {
+          authModeInput.value = 'login';
+          authTitle.textContent = 'Street Side';
+          authSubtitle.textContent = 'Ingresa tus credenciales de acceso';
+          btnAuthSubmit.textContent = 'Iniciar sesión';
+          
+          registerFields.style.display = 'none';
+          confirmPasswordField.style.display = 'none';
+          birthdateInput.required = false;
+          confirmPasswordInput.required = false;
+          
+          toggleText.innerHTML = '¿No tienes una cuenta? <a id="btn-toggle-auth">Regístrate aquí</a>';
+        }
+      }
+    });
+
+  
     document.getElementById('login-form').addEventListener('submit', function(event) {
       event.preventDefault();
+      errorMsg.style.display = 'none';
 
-      const usuarioInput = document.getElementById('username').value.trim();
-      const passwordInput = document.getElementById('password').value;
-      const errorMsg = document.getElementById('error-msg');
+      const userVal = usuarioInput.value.trim();
+      const passVal = passwordInput.value;
+      const modoActual = authModeInput.value;
 
-      const CREDENCIALES_ADMIN = { user: "admin", pass: "admin123" };
-      const CREDENCIALES_CLIENTE = { user: "cliente", pass: "cliente123" };
+      if (modoActual === 'login') {
 
-      if (usuarioInput === CREDENCIALES_ADMIN.user && passwordInput === CREDENCIALES_ADMIN.pass) {
-        localStorage.setItem('userRole', 'admin');
-        localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'admin.html';
-        return;
-      } 
-      
-      if (usuarioInput === CREDENCIALES_CLIENTE.user && passwordInput === CREDENCIALES_CLIENTE.pass) {
-        localStorage.setItem('userRole', 'client');
-        localStorage.setItem('isLoggedIn', 'true');
-        window.location.href = 'index.html';
-        return;
+        const CREDENCIALES_ADMIN = { user: "admin", pass: "admin123" };
+        const CREDENCIALES_CLIENTE = { user: "cliente", pass: "cliente123" };
+
+        // Validar credenciales fijas de Admin
+        if (userVal === CREDENCIALES_ADMIN.user && passVal === CREDENCIALES_ADMIN.pass) {
+          localStorage.setItem('userRole', 'admin');
+          localStorage.setItem('isLoggedIn', 'true');
+          window.location.href = 'admin.html';
+          return;
+        } 
+        
+        // Validar credenciales fijas de Cliente
+        if (userVal === CREDENCIALES_CLIENTE.user && passVal === CREDENCIALES_CLIENTE.pass) {
+          localStorage.setItem('userRole', 'client');
+          localStorage.setItem('isLoggedIn', 'true');
+          window.location.href = 'index.html';
+          return;
+        }
+
+        // Validar contra usuarios creados dinámicamente en el Registro
+        const usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios_street')) || [];
+        const usuarioEncontrado = usuariosRegistrados.find(u => u.user === userVal && u.pass === passVal);
+
+        if (usuarioEncontrado) {
+          localStorage.setItem('userRole', 'client');
+          localStorage.setItem('isLoggedIn', 'true');
+          window.location.href = 'index.html';
+          return;
+        }
+
+        errorMsg.style.display = 'block';
+
+      } else {
+        
+        const birthVal = birthdateInput.value;
+        const confirmPassVal = confirmPasswordInput.value;
+
+        if (passVal !== confirmPassVal) {
+          alert("Las contraseñas no coinciden.");
+          return;
+        }
+
+        let usuariosRegistrados = JSON.parse(localStorage.getItem('usuarios_street')) || [];
+
+        const existe = usuariosRegistrados.some(u => u.user.toLowerCase() === userVal.toLowerCase());
+        if (existe || userVal.toLowerCase() === "admin" || userVal.toLowerCase() === "cliente") {
+          alert("Este nombre de usuario ya está en uso.");
+          return;
+        }
+
+        const nuevoUsuario = {
+          user: userVal,
+          pass: passVal,
+          birthdate: birthVal
+        };
+
+        usuariosRegistrados.push(nuevoUsuario);
+        localStorage.setItem('usuarios_street', JSON.stringify(usuariosRegistrados));
+
+        alert("¡Cuenta registrada con éxito! Ya puedes iniciar sesión.");
+        
+        // Regresar automáticamente al modo Login
+        document.getElementById('btn-toggle-auth').click();
+        usuarioInput.value = userVal; 
+        passwordInput.value = "";
       }
-
-      errorMsg.style.display = 'block';
     });
   </script>
 </body>

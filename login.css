@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #3e3e3e;
+  background-color: #3a3a3a;
   padding: 20px;
   font-family: sans-serif; 
 }
@@ -16,7 +16,7 @@
   padding: 40px 30px;
   background-color: #ffffff;
   border-radius: 23px;
-  box-shadow: 0 10px 30px rgba(181, 181, 181, 0.3);
+  box-shadow: 0 10px 30px rgba(181, 181, 181, 0.8);
 }
 
 .login-title {
@@ -63,7 +63,7 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #ffffff; /* Rojo de acento */
+  border-color: #414141;
   box-shadow: 0 0 8px rgba(161, 161, 161, 0.2);
 }
 
@@ -72,13 +72,13 @@
   background-color: #000000;
   color: #ffffff;
   padding: 14px;
-  border: none;
+  border: 2px solid #000000;
   border-radius: 6px;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
   text-transform: uppercase;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: background-color 0.2s, color 0.2s, transform 0.1s;
 }
 
 .btn-login:hover {
@@ -97,4 +97,28 @@
   margin-top: 16px;
   text-align: center;
   display: none;
+}
+
+/* ===== ENLACE DE ALTERNAR (LOGIN / REGISTRO) ===== */
+.auth-toggle {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #737373;
+}
+
+.auth-toggle a {
+  color: #000000;
+  font-weight: 800;
+  text-decoration: none;
+  border-bottom: 1.5px solid #000000;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.auth-toggle a:hover {
+  color: #B90505;
+  border-color: #B90505;
 }
