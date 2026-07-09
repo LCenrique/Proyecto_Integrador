@@ -1323,3 +1323,73 @@ tbody tr:hover {
   object-fit: cover;
   border-radius: 8px 8px 0 0;
 }
+
+/* ============================================================
+   CARRUSEL HERO (100% NATIVO SIN BOOTSTRAP)
+   ============================================================ */
+.welcome-carousel-wrapper {
+  margin-bottom: 32px;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-inner-native {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+/* Ocultamos los slides por defecto y les damos transición */
+.carousel-item-native {
+  display: none;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+/* Cuando tenga la clase active, se muestra y se desvanece suave */
+.carousel-item-native.active {
+  display: block;
+  opacity: 1;
+}
+
+/* Flechas de navegación nativas */
+.custom-hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+  border: 1px solid #333;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  opacity: 0;
+  transition: all 0.25s ease;
+}
+
+.custom-hero-arrow.prev { left: 16px; }
+.custom-hero-arrow.next { right: 16px; }
+
+.welcome-carousel-wrapper:hover .custom-hero-arrow {
+  opacity: 0.7;
+}
+
+.custom-hero-arrow:hover {
+  opacity: 1 !important;
+  background: #b90505;
+  border-color: #b90505;
+}
+
+@media (max-width: 600px) {
+  .custom-hero-arrow {
+    display: none; /* En celular es mejor que ruede solo */
+  }
+}

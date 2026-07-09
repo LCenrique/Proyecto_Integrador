@@ -15,7 +15,7 @@ const products = JSON.parse(localStorage.getItem("streetSideProducts")) || [
   // CADENAS
   { id:1,  nombre:"Cadena Cubana Plata",         cat:"cadenas",      precio:220,  precioOld:null, oferta:true,  favorito:false, destacado:true,  source:"Images/Cadena_CP.jpeg",   desc:"Acero inoxidable 316L de alta resistencia.", descL:"Fabricada en acero inoxidable 316L de alta resistencia, diseñada para conservar su brillo y soportar el uso diario sin perder su estilo." },
   { id:2,  nombre:"Cadena Snake Gold",           cat:"cadenas",      precio:430,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Cadena_SG.jpeg",   desc:"Acabado en oro 18K con brillo elegante.", descL:"Cadena con elegante acabado chapado en oro de 18K, perfecta para complementar cualquier outfit con un toque sofisticado y moderno."  },
-  { id:3,  nombre:"Cadena Rolo Negra",           cat:"cadenas",      precio:320,  precioOld:400,  oferta:true,  favorito:false, destacado:false, source:"Images/Cadena_RN.jpeg",   desc:"Acero negro mate de estilo urbano.", descL:"Elaborada en acero negro mate con un diseño urbano y resistente, ideal para quienes buscan un estilo alternativo y versátil." },
+  { id:3,  nombre:"Cadena Rolo Negra",           cat:"cadenas",      precio:320,  precioOld:null,  oferta:false,  favorito:false, destacado:false, source:"Images/Cadena_RN.jpeg",   desc:"Acero negro mate de estilo urbano.", descL:"Elaborada en acero negro mate con un diseño urbano y resistente, ideal para quienes buscan un estilo alternativo y versátil." },
   { id:4,  nombre:"Cadena Figaro Plata",         cat:"cadenas",      precio:490,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Cadena_FP.jpeg",   desc:"Plata 925 con diseño clásico.", descL:"Fabricada en plata 925 con el clásico diseño Figaro, una pieza elegante que nunca pasa de moda y combina con cualquier ocasión." },
   // ANILLOS
   { id:5,  nombre:"Anillo Calavera Plata",       cat:"anillos",      precio:280,  precioOld:350,  oferta:true,  favorito:false, destacado:true,  source:"Images/Anillo_CLV.jpeg",  desc:"Plata 925 con ajuste adaptable.", descL:"Anillo elaborado en plata 925 con un detallado diseño de calavera y talla ajustable para brindar mayor comodidad al usarlo."  },
@@ -390,5 +390,46 @@ document.addEventListener("DOMContentLoaded", () => {
       
       btnAuth.onclick = null; 
     }
+  }
+});
+
+// ============================================================
+// LOGICA DE CARRUSEL HERO AUTOMÁTICO NATIVO
+// ============================================================
+let currentHeroSlide = 0;
+let heroInterval;
+
+function showHeroSlide(index) {
+  const slides = document.querySelectorAll('.carousel-item-native');
+  if (slides.length === 0) return;
+
+  // Ciclar el índice si se pasa de los límites
+  if (index >= slides.length) currentHeroSlide = 0;
+  else if (index < 0) currentHeroSlide = slides.length - 1;
+  else currentHeroSlide = index;
+
+  // Apagar todos los slides y encender solo el activo
+  slides.forEach((slide) => slide.classList.remove('active'));
+  slides[currentHeroSlide].classList.add('active');
+}
+
+function moveHeroSlide(direction) {
+  clearInterval(heroInterval); // Detiene el temporizador un momento si el usuario hace clic
+  showHeroSlide(currentHeroSlide + direction);
+  startHeroAutoplay(); // Reinicia el contador
+}
+
+function startHeroAutoplay() {
+  heroInterval = setInterval(() => {
+    showHeroSlide(currentHeroSlide + 1);
+  }, 5000); // 5000ms = 5 segundos
+}
+
+// Inicializar cuando cargue el documento
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll('.carousel-item-native');
+  if (slides.length > 0) {
+    showHeroSlide(0);
+    startHeroAutoplay();
   }
 });
