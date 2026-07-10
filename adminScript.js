@@ -13,7 +13,6 @@ if (estadoSesion !== "true" || rolUsuario !== "admin") {
 /* ==========================================================================
    2. CARGA DE DATOS SINCRONIZADA
    ========================================================================== */
-// Leemos exactamente la misma clave que usa tu script.js principal
 let products = JSON.parse(localStorage.getItem("streetSideProducts"));
 
 // Si por alguna razón está vacío, cargamos exactamente tu base de datos de 44 productos
@@ -55,7 +54,7 @@ if (!products || products.length === 0) {
   // PIERCINGS
   { id:28, nombre:"Piercing Septum Plata",       cat:"piercings",    precio:180,  precioOld:240,  oferta:true,  favorito:false, destacado:true,  source:"Images/Piercing_SP.jpeg", desc:"Acero quirúrgico seguro y duradero.", descL:"Piercing para septum fabricado en acero quirúrgico 316L, resistente a la corrosión y cómodo para el uso diario."},
   { id:29, nombre:"Piercing Helix Espiral ",     cat:"piercings",    precio:140,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Piercing_HE.jpeg", desc:"Titanio ligero ideal para uso diario.", descL:"Aro para helix elaborado en titanio grado implante, ligero, seguro para la piel y perfecto para uso continuo."},
-  { id:30, nombre:"Piercing Nariz Diamante",     cat:"piercings",    precio:220,  precioOld:280,  oferta:true,  favorito:false, destacado:false, source:"Images/Piercing_DM.jpeg", desc:"Brillo elegante con cristal premium.", descL:"Piercing para nariz con cristal brillante y estructura de acero inoxidable que aporta un toque elegante y discreto."},
+  { id:30, nombre:"Piercing Nariz Diamante",     cat:"piercings",    precio:220,  precioOld:280,  oferta:true,  favorito:false, destacado:false, source:"Images/Piercing_DM.jpeg", desc:"Brillo elegante con cristal premium.", descL:"Piercing para nariz con cristal brillante y estructura de acero inoxidable que aporta un toque elegante y discretto."},
   { id:31, nombre:"Piercing Daith Corazón",      cat:"piercings",    precio:200,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Piercing_CRZ.jpeg", desc:"Diseño de corazón en plata 925.", descL:"Piercing daith con delicado diseño de corazón elaborado en plata 925, ideal para complementar cualquier estilo."},
   // ACCESORIOS
   { id:32, nombre:"Mochila Hello Kitty Alt",     cat:"accesorios",   precio:680,  precioOld:850,  oferta:false, favorito:false, destacado:true,  source:"Images/Mochila_HK.jpeg", desc:"Estilo kawaii con toque alternativo", descL:"Mochila de edición alternativa con amplio espacio interior y un diseño kawaii que destaca por su originalidad."},
@@ -66,7 +65,7 @@ if (!products || products.length === 0) {
   { id:36, nombre:"Linterna Táctica LED",        cat:"herramientas", precio:340,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Linterna_TCT.jpeg", desc:"Iluminación potente con zoom ajustable.", descL:"Linterna LED de alta potencia con función de zoom ajustable, diseñada para ofrecer una iluminación intensa y confiable."},
   { id:37, nombre:"Navaja Plegable Negra",       cat:"herramientas", precio:560,  precioOld:700,  oferta:true,  favorito:false, destacado:false, source:"Images/Navaja_PL.jpeg", desc:"Hoja de acero D2 ultrarresistente.", descL:"Navaja plegable con hoja de acero D2 y mango G10 ergonómico, ideal por su resistencia y precisión de corte."},
   // ROPA
-  { id:38, nombre:"Chaleco Piel Motociclista",   cat:"ropa",         precio:1800, precioOld:2200, oferta:false, favorito:false, destacado:true,  source:"Images/Chaleco_MT.jpeg", desc:"Chaleco de cuero para un look biker.", descL:"Chaleco confeccionado en cuero genuino con múltiples bolsillos y un diseño inspirado en el estilo biker clásico."  },
+  { id:38, nombre:"Chaleco Piel Motociclista",   cat:"ropa",         precio:1800, precioOld:2200, oferta:false, favorito:false, destacado:true,  source:"Images/Chaleco_MT.jpeg", desc:"Chaleco de cuero para un look biker.", descL:"Chaleco confeccionada en cuero genuino con múltiples bolsillos y un diseño inspirado en el estilo biker clásico."  },
   { id:39, nombre:"Pantalón Cargo Oscuro",       cat:"ropa",         precio:620,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Pantalon_CO.jpeg", desc:"Seis bolsillos y máxima comodidad.", descL:"Pantalón cargo elaborado con tela resistente y seis bolsillos funcionales que ofrecen comodidad y gran capacidad."},
   // CALZADO
   { id:40, nombre:"Tenis Chunky Blanco",         cat:"calzado",      precio:1100, precioOld:1380, oferta:true,  favorito:false, destacado:true,  source:"Images/Tenis_CB.jpeg", desc:"Estilo Y2K con suela de gran volumen.", descL:"Tenis de estilo Y2K con suela gruesa que proporciona comodidad, estabilidad y un diseño moderno en tendencia."  },
@@ -84,7 +83,7 @@ function guardarEnStorage() {
 }
 
 /* ==========================================================================
-   3. FORMATOS Y RENDERIZADO DE TABLA
+   3. FORMATOS Y RENDERIZADO DE TABLA (ACTUALIZADO CON FUNCIÓN EDITAR)
    ========================================================================== */
 const formatPrice = n => "$" + n.toLocaleString("es-MX");
 
@@ -122,7 +121,7 @@ function renderAdminTable() {
             </td>
             <td>
                 <div class="admin-actions">
-                    <button class="btn-edit" onclick="showToast('Edición disponible próximamente')">Editar</button>
+                    <button class="btn-edit" onclick="prepararEdicion(${p.id})">Editar</button>
                     <button class="btn-del" onclick="eliminarProducto(${p.id})">Eliminar</button>
                 </div>
             </td>
@@ -131,17 +130,39 @@ function renderAdminTable() {
 }
 
 /* ==========================================================================
-   4. LOGICA DE BORRADO REAL
+   4. LOGICA DE EDICIÓN (NUEVA FUNCIÓN QUE RELLENA EL FORMULARIO)
+   ========================================================================== */
+function prepararEdicion(id) {
+    // 1. Buscamos el producto en el arreglo por su ID
+    const prod = products.find(p => p.id === id);
+    if (!prod) return;
+
+    // 2. Rellenamos los inputs de tu formulario con los valores actuales
+    document.getElementById("form-product-id").value = prod.id;
+    document.getElementById("form-name").value = prod.nombre;
+    document.getElementById("form-cat").value = prod.cat;
+    document.getElementById("form-price").value = prod.precio;
+    document.getElementById("form-desc").value = prod.desc;
+    document.getElementById("form-oferta").checked = prod.oferta;
+    document.getElementById("form-destacado").checked = prod.destacado;
+    document.getElementById("form-source").value = prod.source || "";
+
+    // 3. Cambiamos el título del modal para avisar que está editando
+    document.getElementById("modal-form-title").textContent = "Editar Producto";
+
+    // 4. Abrimos el modal reutilizando tu clase CSS
+    modal.classList.add("open");
+}
+
+/* ==========================================================================
+   5. LOGICA DE BORRADO REAL
    ========================================================================== */
 function eliminarProducto(id) {
     if (confirm("¿Estás seguro de que deseas eliminar este producto de forma permanente?")) {
-        // Filtramos el arreglo para quitar el producto seleccionado
         products = products.filter(p => p.id !== id);
-        // Guardamos los cambios en el LocalStorage afectando directamente la base compartida
         guardarEnStorage(); 
-        // Volvemos a pintar la tabla del administrador
         renderAdminTable(); 
-        showToast("🗑️ Producto eliminado correctamente");
+        showToast("Producto eliminado correctamente");
     }
 }
 
@@ -151,12 +172,12 @@ document.getElementById("btn-logout-admin").addEventListener("click", () => {
 });
 
 /* ==========================================================================
-   5. INICIALIZACIÓN
+   6. INICIALIZACIÓN
    ========================================================================== */
 renderAdminTable();
 
 /* ==========================================================================
-   6. CONTROL DEL MODAL (ABRIR Y CERRAR)
+   7. CONTROL DEL MODAL (ABRIR Y CERRAR)
    ========================================================================== */
 const modal = document.getElementById("product-modal");
 const openModalBtn = document.getElementById("open-modal-add");
@@ -164,27 +185,21 @@ const closeModalBtn = document.getElementById("close-modal-btn");
 const cancelModalBtn = document.getElementById("cancel-modal-btn");
 const productForm = document.getElementById("product-form");
 
-// Función para abrir el modal
+// Función para abrir el modal (Siempre abre como NUEVO)
 openModalBtn.addEventListener("click", () => {
-    // Limpiamos el formulario por si tenía datos guardados antes
     productForm.reset();
     document.getElementById("form-product-id").value = "";
     document.getElementById("modal-form-title").textContent = "Nuevo Producto";
-    
-    // Agregamos la clase que lo vuelve visible
     modal.classList.add("open");
 });
 
-// Función para cerrar el modal
 function cerrarModal() {
     modal.classList.remove("open");
 }
 
-// Eventos para cerrar al dar clic en la 'X' o en 'Cancelar'
 closeModalBtn.addEventListener("click", cerrarModal);
 cancelModalBtn.addEventListener("click", cerrarModal);
 
-// Cerrar también si dan clic afuera del recuadro blanco
 window.addEventListener("click", (e) => {
     if (e.target === modal) {
         cerrarModal();
@@ -192,42 +207,66 @@ window.addEventListener("click", (e) => {
 });
 
 /* ==========================================================================
-   7. LOGICA DE GUARDAR (SUBMIT DE PRODUCTO NUEVO)
+   8. LOGICA DE GUARDAR (ACTUALIZADO: MANEJA ALTAS Y CAMBIOS)
    ========================================================================== */
 productForm.addEventListener("submit", (e) => {
     e.preventDefault();
 
+    const idVal = document.getElementById("form-product-id").value;
     const nombreVal = document.getElementById("form-name").value.trim();
     const catVal = document.getElementById("form-cat").value;
     const precioVal = parseFloat(document.getElementById("form-price").value);
     const descVal = document.getElementById("form-desc").value.trim();
     const ofertaVal = document.getElementById("form-oferta").checked;
     const destacadoVal = document.getElementById("form-destacado").checked;
-    
     const sourceVal = document.getElementById("form-source").value;
 
+    if (idVal !== "") {
+        // === MODO EDICIÓN ===
+        // Buscamos el objeto existente y cambiamos sus propiedades
+        products = products.map(p => {
+            if (p.id === parseInt(idVal)) {
+                return {
+                    ...p,
+                    nombre: nombreVal,
+                    cat: catVal,
+                    precio: precioVal,
+                    precioOld: ofertaVal ? Math.round(precioVal * 1.25) : null,
+                    oferta: ofertaVal,
+                    destacado: destacadoVal,
+                    source: sourceVal ? sourceVal : p.source, // Si no se sube nada, deja la que ya tenía
+                    desc: descVal ? descVal : "Sin descripción corta.",
+                    descL: descVal ? descVal : "Sin descripción detallada."
+                };
+            }
+            return p;
+        });
+        showToast("Producto actualizado correctamente");
 
-    const nuevoId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
+    } else {
+        // === MODO NUEVO ===
+        const nuevoId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
 
+        const nuevoProducto = {
+            id: nuevoId,
+            nombre: nombreVal,
+            cat: catVal,
+            precio: precioVal,
+            precioOld: ofertaVal ? Math.round(precioVal * 1.25) : null,
+            oferta: ofertaVal,
+            favorito: false,
+            destacado: destacadoVal,
+            source: sourceVal ? sourceVal : "https://via.placeholder.com/150",
+            desc: descVal ? descVal : "Sin descripción corta.",
+            descL: descVal ? descVal : "Sin descripción detallada."
+        };
 
-    const nuevoProducto = {
-        id: nuevoId,
-        nombre: nombreVal,
-        cat: catVal,
-        precio: precioVal,
-        precioOld: ofertaVal ? Math.round(precioVal * 1.25) : null,
-        oferta: ofertaVal,
-        favorito: false,
-        destacado: destacadoVal,
-        source: sourceVal ? sourceVal : "https://via.placeholder.com/150",
-        desc: descVal ? descVal : "Sin descripción corta.",
-        descL: descVal ? descVal : "Sin descripción detallada."
-    };
+        products.push(nuevoProducto);
+        showToast("Producto agregado correctamente");
+    }
 
-    products.push(nuevoProducto);
+    // Guardar cambios finales, refrescar vista y cerrar
     guardarEnStorage();     
     renderAdminTable();  
     cerrarModal();   
-    
-    showToast("Producto agregado correctamente");
 });
