@@ -222,8 +222,9 @@ productForm.addEventListener("submit", (e) => {
     const sourceVal = document.getElementById("form-source").value;
 
     if (idVal !== "") {
-        // === MODO EDICIÓN ===
-        // Buscamos el objeto existente y cambiamos sus propiedades
+/* ========================================================================== 
+    9.MODO EDICIÓN
+   ========================================================================== */
         products = products.map(p => {
             if (p.id === parseInt(idVal)) {
                 return {
@@ -244,7 +245,6 @@ productForm.addEventListener("submit", (e) => {
         showToast("Producto actualizado correctamente");
 
     } else {
-        // === MODO NUEVO ===
         const nuevoId = products.length > 0 ? Math.max(...products.map(p => p.id)) + 1 : 1;
 
         const nuevoProducto = {

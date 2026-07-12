@@ -1393,3 +1393,28 @@ tbody tr:hover {
     display: none; /* En celular es mejor que ruede solo */
   }
 }
+
+.hamburger {
+    background-color: transparent !important;  
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;                              
+    cursor: pointer;
+    border-radius: 6px;                    
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+.hamburger:hover {
+    background-color: #222222 !important;   
+    border-color: #444444;
+}
+
+.hamburger span {
+    display: block;
+    width: 20px;                         
+    height: 2px;                        
+    background-color: #ffffff !important;    
+    border-radius: 2px;                      
+    transition: background-color 0.2s;
+}
