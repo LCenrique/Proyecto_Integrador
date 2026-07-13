@@ -18,7 +18,7 @@ const birthdateInput = document.getElementById('date-nacimiento');
 const confirmPasswordInput = document.getElementById('confirmar-contrasena');
 
 // ==========================================
-// ✨ NUEVO: DETECTAR REGISTRO TRAS RECARGAR
+//  NUEVO: DETECTAR REGISTRO TRAS RECARGAR
 // ==========================================
 const urlParams = new URLSearchParams(window.location.search);
 if (urlParams.get('registrado') === 'true') {
