@@ -1,5 +1,5 @@
 /* --------------------------------------------------------------------------
-   1. WHATSAPP — Conexión con el numero de contacto
+   1. WHATSAPP — Conexión con el numero de contacto :v
   -------------------------------------------------------------------------- */
 const WSP_NUMBER   = "528991038598";
 const whatsappLink = `https://wa.me/${WSP_NUMBER}`;
