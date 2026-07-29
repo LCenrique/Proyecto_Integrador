@@ -408,7 +408,7 @@ if (productForm) {
         cerrarModal();   
     });
 }
-/* INICIALIZACIÓN */
+
 renderCategories();
 renderAdmins();
 renderAdminTable();

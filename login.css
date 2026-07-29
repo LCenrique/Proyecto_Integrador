@@ -5,7 +5,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #3a3a3a;
+  background: radial-gradient(circle at top left, #4d4d4d, #3a3a3a, #020202);
   padding: 20px;
   font-family: sans-serif; 
 }
