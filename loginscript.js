@@ -1,4 +1,4 @@
-
+// ==========================================DE NO TENER LA BASE DE DATOS, ESTE SCRIPT PERMITE INICIAR SESIÓN CON USUARIOS PREDEFINIDOS==========================================
 const authModeInput = document.getElementById('auth-mode');
 const authTitle = document.getElementById('auth-title');
 const authSubtitle = document.getElementById('auth-subtitle');
