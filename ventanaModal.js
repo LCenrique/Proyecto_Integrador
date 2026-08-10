@@ -45,7 +45,6 @@ function verDetalleProducto(producto) {
   }
 
   // Gestionar Disponibilidad (Badge)
-  // Se espera producto.stock como booleano (true/false) o número (> 0)
   const isAvailable = producto.stock === true || producto.stock > 0;
   if (isAvailable) {
     modalAvailabilityBadge.textContent = 'Disponible';
@@ -55,15 +54,17 @@ function verDetalleProducto(producto) {
     modalAvailabilityBadge.setAttribute('data-status', 'sold-out');
   }
 
-  // Configurar enlace de WhatsApp dinámico
+  // Configurar enlace de WhatsApp dinámico leyendo desde localStorage
+  const DEFAULT_PHONE = "528991038598";
+  const currentPhone = localStorage.getItem("streetSideWhatsapp") || DEFAULT_PHONE;
   const mensajeWsp = encodeURIComponent(`Hola! Me interesa obtener más información sobre el producto: ${producto.nombre} ($${producto.precio}).`);
-  // Reemplaza el '521234567890' por tu número real de WhatsApp en el futuro
-  modalBtnWsp.href = `https://wa.me/528991038598?text=${mensajeWsp}`;
+  
+  modalBtnWsp.href = `https://wa.me/${currentPhone}?text=${mensajeWsp}`;
 
-  // Guardar el ID del producto en el botón de favoritos para que el script de favoritos sepa cuál es
+  // Guardar el ID del producto en el botón de favoritos
   modalBtnFav.setAttribute('data-product-id', producto.id || '');
   
-  // Comprobar si el producto ya está en favoritos (asumiendo que manejas una función global o array)
+  // Comprobar si el producto ya está en favoritos
   if (window.esFavorito && window.esFavorito(producto.id)) {
     modalBtnFav.setAttribute('aria-pressed', 'true');
     modalBtnFav.querySelector('.product-modal__btn-fav-label').textContent = 'Quitar de favoritos';
@@ -88,17 +89,14 @@ function cerrarModalProducto() {
 }
 
 // 2. EVENTOS PARA CERRAR EL MODAL
-// Cerrar al hacer clic en el botón de la (X)
 modalCloseBtn.addEventListener('click', cerrarModalProducto);
 
-// Cerrar al hacer clic fuera del contenedor (en el fondo oscuro/overlay)
 modalOverlay.addEventListener('click', (event) => {
   if (event.target === modalOverlay) {
     cerrarModalProducto();
   }
 });
 
-// Cerrar presionando la tecla Escape (Accesibilidad)
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && !modalOverlay.hasAttribute('hidden')) {
     cerrarModalProducto();

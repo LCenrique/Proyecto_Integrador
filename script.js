@@ -1,8 +1,13 @@
 /* --------------------------------------------------------------------------
-   1. WHATSAPP — Conexión con el numero de contacto :v
+   1. WHATSAPP — Conexión con el número de contacto dinámico
   -------------------------------------------------------------------------- */
-const WSP_NUMBER   = "528991038598";
-const whatsappLink = `https://wa.me/${WSP_NUMBER}`;
+const DEFAULT_WSP = "528991706820";
+const WSP_STORAGE_KEY = "streetSideWhatsapp"; // Clave unificada para localStorage
+
+// Función que lee el número actual guardado por el administrador desde localStorage
+function getWhatsappNumber() {
+  return localStorage.getItem(WSP_STORAGE_KEY) || DEFAULT_WSP;
+}
 
 let currentFilter = "inicio";
 let searchQuery   = ""; 
@@ -13,20 +18,20 @@ let searchQuery   = "";
 
 const products = JSON.parse(localStorage.getItem("streetSideProducts")) || [
 
-  { id:1,  nombre:"Cadena Cubana Plata",         cat:"cadenas",      precio:220,  precioOld:null, oferta:true,  favorito:false, destacado:true,  source:"Images/Cadena_CP.jpeg",     desc:"Acero inoxidable 316L de alta resistencia.", descL:"Fabricada en acero inoxidable 316L de alta resistencia, diseñada para conservar su brillo y soportar el uso diario sin perder su estilo." },
-  { id:2,  nombre:"Cadena Snake Gold",           cat:"cadenas",      precio:430,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Cadena_SG.jpeg",     desc:"Acabado en oro 18K con brillo elegante.", descL:"Cadena con elegante acabado chapado en oro de 18K, perfecta para complementar cualquier outfit con un toque sofisticado y moderno."  },
-  { id:3,  nombre:"Cadena Rolo Negra",           cat:"cadenas",      precio:320,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Cadena_RN.jpeg",     desc:"Acero negro mate de estilo urbano.", descL:"Elaborada en acero negro mate con un diseño urbano y resistente, ideal para quienes buscan un estilo alternativo y versátil." },
-  { id:4,  nombre:"Cadena Figaro Plata",         cat:"cadenas",      precio:490,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Cadena_FP.jpeg",     desc:"Plata 925 con diseño clásico.", descL:"Fabricada en plata 925 con el clásico diseño Figaro, una pieza elegante que nunca pasa de moda y combina con cualquier ocasión." },
+  { id:1,  nombre:"Cadena Cubana Plata",        cat:"cadenas",      precio:220,  precioOld:null, oferta:true,  favorito:false, destacado:true,  source:"Images/Cadena_CP.jpeg",    desc:"Acero inoxidable 316L de alta resistencia.", descL:"Fabricada en acero inoxidable 316L de alta resistencia, diseñada para conservar su brillo y soportar el uso diario sin perder su estilo." },
+  { id:2,  nombre:"Cadena Snake Gold",          cat:"cadenas",      precio:430,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Cadena_SG.jpeg",    desc:"Acabado en oro 18K con brillo elegante.", descL:"Cadena con elegante acabado chapado en oro de 18K, perfecta para complementar cualquier outfit con un toque sofisticado y moderno."  },
+  { id:3,  nombre:"Cadena Rolo Negra",          cat:"cadenas",      precio:320,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Cadena_RN.jpeg",    desc:"Acero negro mate de estilo urbano.", descL:"Elaborada en acero negro mate con un diseño urbano y resistente, ideal para quienes buscan un estilo alternativo y versátil." },
+  { id:4,  nombre:"Cadena Figaro Plata",        cat:"cadenas",      precio:490,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Cadena_FP.jpeg",    desc:"Plata 925 con diseño clásico.", descL:"Fabricada en plata 925 con el clásico diseño Figaro, una pieza elegante que nunca pasa de moda y combina con cualquier ocasión." },
 
-  { id:5,  nombre:"Anillo Calavera Plata",       cat:"anillos",      precio:280,  precioOld:350,  oferta:true,  favorito:false, destacado:true,  source:"Images/Anillo_CLV.jpeg",    desc:"Plata 925 con ajuste adaptable.", descL:"Anillo elaborado en plata 925 con un detallado diseño de calavera y talla ajustable para brindar mayor comodidad al usarlo."  },
-  { id:6,  nombre:"Anillo Dragón Negro",         cat:"anillos",      precio:310,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Anillo_DN.jpeg",     desc:"Grabado de dragón en acero negro.", descL:"Fabricado en acero negro con un impresionante grabado de dragón, pensado para destacar con un estilo único y llamativo." },
-  { id:7, nombre:"Anillo Aro Minimalista",       cat:"anillos",      precio:150,  precioOld:200,  oferta:true,  favorito:false, destacado:false, source:"Images/Anillo_AM.jpeg",     desc:"Diseño minimalista para cualquier ocasión.", descL:"Diseño minimalista en acero inoxidable de excelente calidad, perfecto para usar solo o combinar con otros accesorios." },
-  { id:8, nombre:"Anillo Serpiente",             cat:"anillos",      precio:260,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Anillo_SRP.jpeg",    desc:"Anillo envolvente con acabado oxidado.", descL:"Anillo envolvente con diseño de serpiente y acabado en plata oxidada, ideal para quienes buscan un accesorio con personalidad." },
+  { id:5,  nombre:"Anillo Calavera Plata",      cat:"anillos",      precio:280,  precioOld:350,  oferta:true,  favorito:false, destacado:true,  source:"Images/Anillo_CLV.jpeg",   desc:"Plata 925 con ajuste adaptable.", descL:"Anillo elaborado en plata 925 con un detallado diseño de calavera y talla ajustable para brindar mayor comodidad al usarlo."  },
+  { id:6,  nombre:"Anillo Dragón Negro",        cat:"anillos",      precio:310,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Anillo_DN.jpeg",    desc:"Grabado de dragón en acero negro.", descL:"Fabricado en acero negro con un impresionante grabado de dragón, pensado para destacar con un estilo único y llamativo." },
+  { id:7,  nombre:"Anillo Aro Minimalista",      cat:"anillos",      precio:150,  precioOld:200,  oferta:true,  favorito:false, destacado:false, source:"Images/Anillo_AM.jpeg",    desc:"Diseño minimalista para cualquier ocasión.", descL:"Diseño minimalista en acero inoxidable de excelente calidad, perfecto para usar solo o combinar con otros accesorios." },
+  { id:8,  nombre:"Anillo Serpiente",            cat:"anillos",      precio:260,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Anillo_SRP.jpeg",   desc:"Anillo envolvente con acabado oxidado.", descL:"Anillo envolvente con diseño de serpiente y acabado en plata oxidada, ideal para quienes buscan un accesorio con personalidad." },
 
-  { id:9, nombre:"Collar Cruz Gótica",           cat:"collares",     precio:340,  precioOld:420,  oferta:true,  favorito:false, destacado:true,  source:"Images/Collar_CG.jpeg",     desc:"Cruz de acero con estilo alternativo.", descL:"Collar con colgante de cruz elaborado en acero inoxidable, perfecto para complementar un estilo alternativo con un toque elegante." },
-  { id:10, nombre:"Collar Ojo de Horus",         cat:"collares",     precio:290,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Collar_OH.jpeg",     desc:"Colgante inspirado en el Ojo de Horus.", descL:"Colgante inspirado en el Ojo de Horus con acabado dorado, símbolo de protección que destaca por su diseño moderno." },
-  { id:11, nombre:"Collar Piedra Obsidiana",     cat:"collares",     precio:380,  precioOld:480,  oferta:false, favorito:false, destacado:false, source:"Images/Collar_PO.jpeg",     desc:"Obsidiana natural con cordón resistente.", descL:"Collar con auténtica piedra de obsidiana natural y cordón resistente, ideal para un estilo auténtico y sofisticado."},
-  { id:12, nombre:"Collar Diente Tiburón",       cat:"collares",     precio:260,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Collar_DT.jpeg",     desc:"Colgante estilo surfer con acabado dorado.", descL:"Colgante con forma de diente de tiburón y detalles dorados, inspirado en un estilo surfer moderno y juvenil."},
+  { id:9,  nombre:"Collar Cruz Gótica",          cat:"collares",     precio:340,  precioOld:420,  oferta:true,  favorito:false, destacado:true,  source:"Images/Collar_CG.jpeg",    desc:"Cruz de acero con estilo alternativo.", descL:"Collar con colgante de cruz elaborado en acero inoxidable, perfecto para complementar un estilo alternativo con un toque elegante." },
+  { id:10, nombre:"Collar Ojo de Horus",        cat:"collares",     precio:290,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Collar_OH.jpeg",    desc:"Colgante inspirado en el Ojo de Horus.", descL:"Colgante inspirado en el Ojo de Horus con acabado dorado, símbolo de protección que destaca por su diseño moderno." },
+  { id:11, nombre:"Collar Piedra Obsidiana",    cat:"collares",     precio:380,  precioOld:480,  oferta:false, favorito:false, destacado:false, source:"Images/Collar_PO.jpeg",    desc:"Obsidiana natural con cordón resistente.", descL:"Collar con auténtica piedra de obsidiana natural y cordón resistente, ideal para un estilo auténtico y sofisticado."},
+  { id:12, nombre:"Collar Diente Tiburón",      cat:"collares",     precio:260,  precioOld:null, oferta:false, favorito:false, destacado:false, source:"Images/Collar_DT.jpeg",    desc:"Colgante estilo surfer con acabado dorado.", descL:"Colgante con forma de diente de tiburón y detalles dorados, inspirado en un estilo surfer moderno y juvenil."},
  
   { id:13, nombre:"Cinturón Hebilla Doble",      cat:"cinturones",   precio:480,  precioOld:600,  oferta:true,  favorito:false, destacado:true,  source:"Images/Cinturon_HD.png",    desc:"Cuero genuino con doble hebilla metálica.", descL:"Fabricado en cuero genuino con doble hebilla metálica de alta resistencia, perfecto para un look casual o urbano."},
   { id:14, nombre:"Cinturón Tachuelado",         cat:"cinturones",   precio:520,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Cinturon_TCH.png",   desc:"Cuero negro con detalles metálicos.", descL:"Cinturón de cuero negro decorado con tachuelas metálicas que aportan un estilo rockero, moderno y lleno de personalidad."},
@@ -63,10 +68,10 @@ const products = JSON.parse(localStorage.getItem("streetSideProducts")) || [
   { id:38, nombre:"Chaleco Piel Motociclista",   cat:"ropa",         precio:1800, precioOld:2200, oferta:false, favorito:false, destacado:true,  source:"Images/Chaleco_MT.jpeg",    desc:"Chaleco de cuero para un look biker.", descL:"Chaleco confeccionado en cuero genuino con múltiples bolsillos y un diseño inspirado en el estilo biker clásico."  },
   { id:39, nombre:"Pantalón Cargo Oscuro",       cat:"ropa",         precio:620,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Pantalon_CO.jpeg",   desc:"Seis bolsillos y máxima comodidad.", descL:"Pantalón cargo elaborado con tela resistente y seis bolsillos funcionales que ofrecen comodidad y gran capacidad."},
  
-  { id:40, nombre:"Tenis Chunky Blanco",         cat:"calzado",      precio:1100, precioOld:1380, oferta:true,  favorito:false, destacado:true,  source:"Images/Tenis_CB.jpeg",      desc:"Estilo Y2K con suela de gran volumen.", descL:"Tenis de estilo Y2K con suela gruesa que proporciona comodidad, estabilidad y un diseño moderno en tendencia."  },
+  { id:40, nombre:"Tenis Chunky Blanco",        cat:"calzado",      precio:1100, precioOld:1380, oferta:true,  favorito:false, destacado:true,  source:"Images/Tenis_CB.jpeg",      desc:"Estilo Y2K con suela de gran volumen.", descL:"Tenis de estilo Y2K con suela gruesa que proporciona comodidad, estabilidad y un diseño moderno en tendencia."  },
   { id:41, nombre:"Oxford Cuero Negro",          cat:"calzado",      precio:980,  precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Zapatos_OCN.jpeg",   desc:"Elegancia clásica en cuero genuino.", descL:"Zapatos Oxford elaborados en cuero negro con acabado elegante y suela resistente, ideales para cualquier ocasión."  },
   { id:42, nombre:"Sandalias Plataforma",        cat:"calzado",      precio:750,  precioOld:940,  oferta:true,  favorito:false, destacado:false, source:"Images/Sandalias_PLT.jpeg", desc:"Plataforma cómoda con hebilla ajustable.", descL:"Sandalias con plataforma de 5 cm y hebilla ajustable que brindan comodidad, estabilidad y un estilo contemporáneo."  },
-  
+ 
   { id:43, nombre:"Pack Stickers Skulls x20",    cat:"stickers",     precio:80,   precioOld:120,  oferta:true,  favorito:false, destacado:true,  source:"Images/Stickers_PKT.jpeg",  desc:"20 stickers de vinilo resistentes al agua.", descL:"Paquete con 20 stickers de vinilo impermeable de alta calidad, ideales para personalizar laptops, botellas o libretas."  },
   { id:44, nombre:"Sticker Holográfico Dragon",  cat:"stickers",     precio:45,   precioOld:null, oferta:false, favorito:false, destacado:true,  source:"Images/Sticker_HD.jpeg",    desc:"Acabado holográfico con efecto brillante.", descL:"Sticker holográfico con diseño de dragón y acabado brillante que cambia de color según el ángulo de la luz."  },
 ];
@@ -82,7 +87,6 @@ let favs = new Set(products.filter(p => p.favorito).map(p => p.id));
 window.esFavorito = function(id) {
   return favs.has(id);
 };
-
 
 document.getElementById("modal-btn-fav").addEventListener("click", function() {
 
@@ -143,8 +147,10 @@ function showToast(msg) {
 }
 
 function openWsp(e) {
-  e.preventDefault();
-  window.open(whatsappLink, "_blank");
+  if (e) e.preventDefault();
+  const wspNumber = getWhatsappNumber();
+  const msg = encodeURIComponent("Hola, me interesa obtener información del catálogo.");
+  window.open(`https://wa.me/${wspNumber}?text=${msg}`, "_blank");
 }
 
 function doSearch() {
@@ -152,7 +158,7 @@ function doSearch() {
   renderProductGrid();
 }
 
-/* --------------------------------------------------|------------------------
+/* --------------------------------------------------------------------------
    5. FILTRO Y NAVEGACIÓN
    -------------------------------------------------------------------------- */
 const FILTER_LABELS = {
@@ -261,7 +267,7 @@ function renderOfertas() {
     .filter(p => p.oferta)
     .slice(0, 8)
     .map(p => {
-      const old  = p.precioOld || Math.round(p.precio * 1.3);
+      const old    = p.precioOld || Math.round(p.precio * 1.3);
       const ahorro = old - p.precio;
 
       // Validación de imagen para las Ofertas
@@ -363,30 +369,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnAuth = document.getElementById('btn-auth');
 
   if (btnAuth) {
-    // Buscamos la etiqueta <strong> que está adentro del enlace
     const strongText = btnAuth.querySelector('strong');
     const estadoSesion = localStorage.getItem('isLoggedIn');
 
     if (estadoSesion === 'true') {
-      // SI INICIÓ SESIÓN: Cambiamos el texto de adentro del strong
       if (strongText) {
         strongText.textContent = "Cerrar Sesión";
       }
 
-      // Desactivamos el comportamiento del enlace para que no redirija a login.html
       btnAuth.onclick = function(event) {
         event.preventDefault();
-        localStorage.clear(); // Limpieza absoluta de la sesión fantasma
-        window.location.reload(); // Recarga la misma página al instante
+        
+        // BORRAMOS SOLO LAS CLAVES DE SESIÓN (NO USAR localStorage.clear())
+        localStorage.removeItem('isLoggedIn');
+        localStorage.removeItem('userRole');
+        
+        window.location.reload(); // Recarga la página para actualizar el estado
       };
 
     } else {
-      // SI ES INVITADO: Aseguramos que diga Iniciar Sesión de forma normal
       if (strongText) {
         strongText.textContent = "Iniciar sesión";
       }
       btnAuth.style.color = "";
-      
       btnAuth.onclick = null; 
     }
   }
@@ -432,3 +437,34 @@ document.addEventListener("DOMContentLoaded", () => {
     startHeroAutoplay();
   }
 });
+
+/* ==========================================================================
+   ACTUALIZAR ENLACES DE WHATSAPP DESDE LOCALSTORAGE
+   ========================================================================== */
+function actualizarEnlacesWhatsApp() {
+    const phone = getWhatsappNumber();
+
+    // Selecciona los enlaces que contengan wa.me, api.whatsapp.com o el botón por ID
+    const btnContacto = document.querySelectorAll('a[href*="wa.me"], a[href*="api.whatsapp.com"], #btn-contactanos');
+
+    btnContacto.forEach(link => {
+        let textParam = "Hola, me interesa obtener información del catálogo.";
+        
+        // Si el enlace ya tenía un parámetro de texto previo, lo preservamos
+        if (link.href && link.href.includes("http")) {
+          try {
+            const currentUrl = new URL(link.href, window.location.origin);
+            if (currentUrl.searchParams.has("text")) {
+              textParam = currentUrl.searchParams.get("text");
+            }
+          } catch(err) {
+            // Si el href era algo incompleto o desestructurado, continúa con el mensaje por defecto
+          }
+        }
+
+        link.href = `https://wa.me/${phone}?text=${encodeURIComponent(textParam)}`;
+    });
+}
+
+// Ejecutar al cargar la página principal
+document.addEventListener("DOMContentLoaded", actualizarEnlacesWhatsApp);
