@@ -55,7 +55,7 @@ function verDetalleProducto(producto) {
   }
 
   // Configurar enlace de WhatsApp dinámico leyendo desde localStorage
-  const DEFAULT_PHONE = "528991038598";
+  const DEFAULT_PHONE = "528991706820";
   const currentPhone = localStorage.getItem("streetSideWhatsapp") || DEFAULT_PHONE;
   const mensajeWsp = encodeURIComponent(`Hola! Me interesa obtener más información sobre el producto: ${producto.nombre} ($${producto.precio}).`);
   
